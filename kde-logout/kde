@@ -1,0 +1,25 @@
+local cmd="$1"
+local force="$2"
+
+if [[ "$cmd" == "logout" ]]; then
+  echo "Logging out of KDE..."
+  # qdbus org.kde.LogoutPrompt /LogoutPrompt org.kde.LogoutPrompt.promptLogout
+  # qdbus org.kde.Shutdown /Shutdown org.kde.Shutdown.logout
+elif [[ "$cmd" == "restart" ]]; then
+  echo "Restarting KDE..."
+  # qdbus org.kde.LogoutPrompt /LogoutPrompt org.kde.LogoutPrompt.promptReboot
+  # qdbus org.kde.Shutdown /Shutdown org.kde.Shutdown.logoutAndReboot
+elif [[ "$cmd" == "shutdown" ]]; then
+  echo "Shutting down KDE..."
+  # qdbus org.kde.LogoutPrompt /LogoutPrompt org.kde.LogoutPrompt.promptShutdown
+  # qdbus org.kde.Shutdown /Shutdown org.kde.Shutdown.logoutAndShutdown
+fi
+  
+
+# Local Variables:
+# mode: Shell-Script
+# sh-indentation: 2
+# indent-tabs-mode: nil
+# sh-basic-offset: 2
+# End:
+# vim: ft=zsh sw=2 ts=2 et
