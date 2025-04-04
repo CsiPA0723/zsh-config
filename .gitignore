@@ -1,0 +1,6 @@
+/modules
+
+*.swp
+*.zwc
+*.zwc.old
+fzf---zsh.zsh
