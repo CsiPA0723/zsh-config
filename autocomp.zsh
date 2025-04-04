@@ -1,8 +1,5 @@
-# KDE Logout function
-fpath=(~/.config/zsh-config/completions $fpath)
-
 # Zoxide
-eval $(zoxide init zsh)
+eval "$(zoxide init zsh)"
 
 # Python pipx
 eval "$(register-python-argcomplete pipx)"

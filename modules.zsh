@@ -42,6 +42,7 @@ zsh-update-modules() {
 
 # Load modules {{{
 
+source ${MODULE_FOLDER}/zsh-transient-prompt/transient-prompt.zsh-theme
 source ${MODULE_FOLDER}/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 source ${MODULE_FOLDER}/zsh-history-substring-search/zsh-history-substring-search.zsh
 source ${MODULE_FOLDER}/zsh-abbr/zsh-abbr.zsh
