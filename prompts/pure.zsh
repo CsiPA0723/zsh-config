@@ -24,31 +24,36 @@
 # \e[2K => clear everything on the current line
 
 
-# Turns seconds into human readable time.
+# Turns seconds into human readable time. (Austin)
 # 165392 => 1d 21h 56m 32s
-# https://github.com/sindresorhus/pretty-time-zsh
+# https://github.com/JanDeDobbeleer/oh-my-posh/blob/main/src/segments/executiontime.go
 prompt_pure_human_time_to_var() {
-	local human total_seconds=$1 var=$2
-	local days=$(( total_seconds / 60 / 60 / 24 ))
-	local hours=$(( total_seconds / 60 / 60 % 24 ))
-	local minutes=$(( total_seconds / 60 % 60 ))
-	local seconds=$(( total_seconds % 60 ))
-	(( days > 0 )) && human+="${days}d "
-	(( hours > 0 )) && human+="${hours}h "
-	(( minutes > 0 )) && human+="${minutes}m "
-	human+="${seconds}s"
+  local human total_seconds=$1 var=$2
+  if [[ $1 -lt 1 ]]; then
+    integer milliseconds=$(($1 * 1000 ))
+    human="${milliseconds}ms"
+  else
+    integer days=$(( total_seconds / 60 / 60 / 24 ))
+    integer hours=$(( total_seconds / 60 / 60 % 24 ))
+    integer minutes=$(( total_seconds / 60 % 60 ))
+    typeset -F3 seconds=$(( total_seconds % 60 ))
+    (( days > 0 )) && human+="${days}d "
+    (( hours > 0 )) && human+="${hours}h "
+    (( minutes > 0 )) && human+="${minutes}m "
+    human+="${seconds%%[0]}s"
+  fi
 
-	# Store human readable time in a variable as specified by the caller
-	typeset -g "${var}"="${human}"
+  # Store human readable time in a variable as specified by the caller
+  typeset -g "${var}"="${human}"
 }
 
 # Stores (into prompt_pure_cmd_exec_time) the execution
 # time of the last command if set threshold was exceeded.
 prompt_pure_check_cmd_exec_time() {
-	integer elapsed
-	(( elapsed = EPOCHSECONDS - ${prompt_pure_cmd_timestamp:-$EPOCHSECONDS} ))
+  local elapsed
+	(( elapsed = EPOCHREALTIME - ${prompt_pure_cmd_timestamp:-$EPOCHREALTIME} ))
 	typeset -g prompt_pure_cmd_exec_time=
-	(( elapsed > ${PURE_CMD_MAX_EXEC_TIME:-5} )) && {
+	(( elapsed > ${PURE_CMD_MAX_EXEC_TIME:-0.001} )) && {
 		prompt_pure_human_time_to_var $elapsed "prompt_pure_cmd_exec_time"
 	}
 }
@@ -92,7 +97,7 @@ prompt_pure_preexec() {
 		fi
 	fi
 
-	typeset -g prompt_pure_cmd_timestamp=$EPOCHSECONDS
+	typeset -g prompt_pure_cmd_timestamp=$EPOCHREALTIME
 
 	# Shows the current directory and executed command in the title while a process is active.
 	prompt_pure_set_title 'ignore-escape' "$PWD:t: $2"
@@ -175,6 +180,7 @@ prompt_pure_preprompt_render() {
 	# Construct the new prompt with a clean preprompt.
 	local -ah ps1
 	ps1=(
+		$prompt_newline           # Separate
 		${(j. .)preprompt_parts}  # Join parts, space separated.
 		$prompt_newline           # Separate preprompt and prompt.
 		$cleaned_ps1
@@ -186,10 +192,7 @@ prompt_pure_preprompt_render() {
 	local expanded_prompt
 	expanded_prompt="${(S%%)PROMPT}"
 
-	if [[ $1 == precmd ]]; then
-		# Initial newline, for spaciousness.
-		print
-	elif [[ $prompt_pure_last_prompt != $expanded_prompt ]]; then
+	if [[ $prompt_pure_last_prompt != $expanded_prompt ]]; then
 		# Redraw the prompt.
 		prompt_pure_reset_prompt
 	fi

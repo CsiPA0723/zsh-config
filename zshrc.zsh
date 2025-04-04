@@ -1,6 +1,3 @@
-# Remove path separator from WORDCHARS.
-# WORDCHARS=${WORDCHARS//[\/]}
-
 source $HOME/.config/zsh-config/options.zsh
 source $HOME/.config/zsh-config/input.zsh
 source $HOME/.config/zsh-config/colors.zsh

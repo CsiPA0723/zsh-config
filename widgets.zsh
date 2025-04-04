@@ -29,7 +29,8 @@ zoxide_run-cdi() {
   fi
 
   builtin cd -- ${(q)dir}
-  zle reset-prompt
+  zle .reset-prompt
+	prompt_pure_async_tasks
   unset dir
 }
 
