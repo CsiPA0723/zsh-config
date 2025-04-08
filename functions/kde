@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 local cmd="$1"
 local force="$2"
 
