@@ -50,7 +50,7 @@ prompt_pure_human_time_to_var() {
 # Stores (into prompt_pure_cmd_exec_time) the execution
 # time of the last command if set threshold was exceeded.
 prompt_pure_check_cmd_exec_time() {
-  local elapsed
+  local -F5 elapsed
 	(( elapsed = EPOCHREALTIME - ${prompt_pure_cmd_timestamp:-$EPOCHREALTIME} ))
 	typeset -g prompt_pure_cmd_exec_time=
 	(( elapsed > ${PURE_CMD_MAX_EXEC_TIME:-0.005} )) && {
