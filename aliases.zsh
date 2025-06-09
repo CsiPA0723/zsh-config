@@ -9,6 +9,10 @@ alias zz='z -'
 
 alias ssh='kitten ssh '
 
+# alias ..="cd .." -- NOTE: not needed
+alias ....="cd ../.."
+alias ......="cd ../../.."
+
 # Always wear a condom
 alias chmod='chmod --preserve-root -v'
 alias chown='chown --preserve-root -v'
