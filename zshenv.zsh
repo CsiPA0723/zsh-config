@@ -12,6 +12,10 @@ if [[ $(uname -ar) = *"CsiPA-Arch"* ]]; then
   path+=(/usr/local/texlive/2025/bin/x86_64-linux)
 fi
 
+if [[ $(uname -ar) = *"crowsnest"* ]]; then
+  export SERVER_CONFIG=true
+fi
+
 export BAT_THEME="Catppuccin Macchiato"
 export MANPAGER="nvim +Man! "
 export AUR_PAGER="yazi"
