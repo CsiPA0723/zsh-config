@@ -7,7 +7,10 @@ alias cat='bat '
 
 alias zz='z -'
 
-alias ssh='kitten ssh '
+
+if [[ $(uname -ar) = *"CsiPA-Arch"* ]]; then
+  alias ssh='kitten ssh '
+fi
 
 # alias ..="cd .." -- NOTE: not needed
 alias ....="cd ../.."
