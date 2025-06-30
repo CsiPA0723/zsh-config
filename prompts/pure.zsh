@@ -141,9 +141,6 @@ prompt_pure_preprompt_render() {
 		preprompt_parts+='%F{$prompt_pure_colors[suspended_jobs]}✦'
 	fi
 
-	# Username and machine, if applicable.
-	[[ -n $prompt_pure_state[username] ]] && preprompt_parts+=($prompt_pure_state[username])
-
 	# Set the path.
 	preprompt_parts+=('%F{${prompt_pure_colors[path]}}%~%f')
 
@@ -855,6 +852,9 @@ prompt_pure_setup() {
 
 	# If a virtualenv is activated, display it in grey.
 	PROMPT='%(12V.%F{$prompt_pure_colors[virtualenv]}%12v%f .)'
+
+	# Username and machine, if applicable.
+	[[ -n $prompt_pure_state[username] ]] && PROMPT+=($prompt_pure_state[username])
 
 	# Prompt turns red if the previous command didn't exit with 0.
 	local prompt_indicator='%(?.%F{$prompt_pure_colors[prompt:success]}.%F{$prompt_pure_colors[prompt:error]})${prompt_pure_state[prompt]}%f '
