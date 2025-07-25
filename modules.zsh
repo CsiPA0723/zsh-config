@@ -53,6 +53,9 @@ source ${MODULE_FOLDER}/zsh-autosuggestions-abbreviations-strategy/zsh-autosugge
 
 # Setup Modules {{{
 
+# Load profiling module
+zmodload zsh/zprof
+
 # zsh-history-substring-search
 zmodload -F zsh/terminfo +p:terminfo
 # Bind ^[[A/^[[B manually so up/down works both before and after zle-line-init
