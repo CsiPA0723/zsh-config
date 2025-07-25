@@ -1,0 +1,4 @@
+#!/usr/bin/env zsh
+shell=${1-$SHELL}
+for i in $(seq 1 10); do time $shell -i -c exit; done
+# vim:et sts=2 sw=2 ft=zsh
