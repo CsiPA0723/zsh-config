@@ -15,12 +15,14 @@ if [[ $(uname -ar) = *"crowsnest"* ]]; then
   export SERVER_CONFIG=true
 fi
 
+export PNPM_HOME="$HOME/.local/share/pnpm"
 export NVM_DIR="$HOME/.nvm"
 export BAT_THEME="Catppuccin Macchiato"
 export MANPAGER="nvim +Man! "
 export AUR_PAGER="yazi"
 
 path=(~/.local/bin $path)
+path=($PNPM_HOME $path)
 export PATH
 
 # vim:fileencoding=utf-8
