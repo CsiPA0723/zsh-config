@@ -9,6 +9,7 @@ if [[ $(uname -ar) = *"CsiPA-Arch"* ]]; then
   export MANPATH=/usr/local/texlive/2013/texmf-dist/doc/man:$MANPATH
   export INFOPATH=/usr/local/texlive/2013/texmf-dist/doc/info:$INFOPATH
   path+=(/usr/local/texlive/2025/bin/x86_64-linux)
+  path+=(~/.dotnet/tools)
 fi
 
 if [[ $(uname -ar) = *"crowsnest"* ]]; then
