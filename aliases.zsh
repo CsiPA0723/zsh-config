@@ -20,7 +20,7 @@ alias ......="cd ../../.."
 alias chmod='chmod --preserve-root -v'
 alias chown='chown --preserve-root -v'
 if (( ${+commands[safe-rm]} && ! ${+commands[safe-rmdir]} )); then
-  alias rm=safe-rm
+  alias rm="safe-rm -v"
 else
   alias rm="rm -v"
 fi
