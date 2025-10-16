@@ -28,14 +28,44 @@ zoxide_run-cdi() {
     return 0
   fi
 
-  builtin cd -- ${(q)dir}
+  builtin cd -- ${(q)dir:a}
   zle .reset-prompt
 	prompt_pure_async_tasks
   unset dir
 }
 
 zle -N zoxide_run-cdi
-bindkey "^G" zoxide_run-cdi
+bindkey -M vicmd "^G" zoxide_run-cdi
+bindkey -M viins "^G" zoxide_run-cdi
+
+# }}}
+
+# FZF .session.vim Project chooser {{{
+
+fzf-project-widget() {
+  setopt localoptions pipefail no_aliases 2> /dev/null
+
+  local dir="$(
+    FZF_DEFAULT_COMMAND="command fd --search-path=$HOME -H --no-ignore-vcs -E .git -td -tf --glob .session.vim | sed 's/\/\.session\.vim//g'" \
+    FZF_DEFAULT_OPTS=$(__fzf_defaults "--reverse --scheme=path --prompt='Sessions > ' --preview='eza -lhA --group-directories-first --icons --color=always --no-filesize --no-permissions --git {}'") \
+    FZF_DEFAULT_OPTS_FILE='' $(__fzfcmd) < /dev/tty)"
+
+  if [[ -z "$dir" ]]; then
+    zle redisplay
+    return 0
+  fi
+  
+  builtin cd -- ${(q)dir:a}
+  zoxide add ${(q)dir:a}
+  unset dir
+  zle .reset-prompt
+	prompt_pure_async_tasks
+}
+
+zle -N fzf-project-widget
+bindkey -M vicmd "^F" fzf-project-widget
+bindkey -M viins "^F" fzf-project-widget
+
 
 # }}}
 
