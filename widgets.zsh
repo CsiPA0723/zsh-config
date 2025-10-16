@@ -47,7 +47,7 @@ fzf-project-widget() {
 
   local dir="$(
     FZF_DEFAULT_COMMAND="command fd --search-path=$HOME -H --no-ignore-vcs -E .git -td -tf --glob .session.vim | sed 's/\/\.session\.vim//g'" \
-    FZF_DEFAULT_OPTS=$(__fzf_defaults "--reverse --scheme=path --prompt='Sessions > ' --preview='eza -lhA --group-directories-first --icons --color=always --no-filesize --no-permissions --git {}'") \
+    FZF_DEFAULT_OPTS=$(__fzf_defaults "--reverse --scheme=path --no-multi --prompt='Sessions > ' --preview='eza -lhA --group-directories-first --icons --color=always --no-filesize --no-permissions --git {}'") \
     FZF_DEFAULT_OPTS_FILE='' $(__fzfcmd) < /dev/tty)"
 
   if [[ -z "$dir" ]]; then
