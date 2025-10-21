@@ -14,6 +14,7 @@ fi
 
 if [[ $(uname -ar) = *"crowsnest"* ]]; then
   export SERVER_CONFIG=true
+  export GPG_TTY=$(tty)
 fi
 
 export PNPM_HOME="$HOME/.local/share/pnpm"
