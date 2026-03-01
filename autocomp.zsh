@@ -14,4 +14,8 @@ if [[ $(uname -ar) = *"CsiPA-Arch"* ]]; then
   eval "$(ng completion script)"
 fi
 
+# VCPKG
+# NOTE: is bashcompinit needed??
+[ -s "$HOME/.local/share/vcpkg/scripts/vcpkg_completion.zsh" ] && source $HOME/.local/share/vcpkg/scripts/vcpkg_completion.zsh
+
 # vim:fileencoding=utf-8:foldmethod=marker

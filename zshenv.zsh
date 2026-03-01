@@ -18,6 +18,7 @@ if [[ $(uname -ar) = *"crowsnest"* ]]; then
   export GPG_TTY=$(tty)
 fi
 
+export VCPKG_ROOT="$HOME/.local/share/vcpkg"
 export PNPM_HOME="$HOME/.local/share/pnpm"
 export NVM_DIR="$HOME/.nvm"
 export BAT_THEME="Catppuccin Macchiato"
