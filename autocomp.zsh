@@ -1,9 +1,11 @@
 # Zoxide
-eval "$(zoxide init zsh)"
+(( ${+commands[zoxide]} )) && eval "$(zoxide init zsh)"
 
 [ -s "/usr/share/nvm/bash_completion" ] && . "/usr/share/nvm/bash_completion"
 
-eval "$(syncthing install-completions)"
+(( ${+commands[pnpm]} )) && eval "$(pnpm completion zsh)"
+
+(( ${+commands[syncthing]} )) && eval "$(syncthing install-completions)"
 
 # Load only on Laptop
 if [[ $(uname -ar) = *"CsiPA-Arch"* ]]; then
@@ -11,7 +13,7 @@ if [[ $(uname -ar) = *"CsiPA-Arch"* ]]; then
   eval "$(register-python-argcomplete pipx)"
 
   # Load Angular CLI autocompletion.
-  eval "$(ng completion script)"
+  (( ${+commands[ng]} )) && eval "$(ng completion script)"
 fi
 
 # VCPKG
