@@ -46,7 +46,7 @@ fzf-project-widget() {
   setopt localoptions pipefail no_aliases 2> /dev/null
 
   local dir="$(
-    FZF_DEFAULT_COMMAND="command fd --search-path=$HOME -H --no-ignore-vcs -E .git -td -tf --glob .session.vim | sed 's/\/\.session\.vim//g'" \
+    FZF_DEFAULT_COMMAND="command fd -C $HOME --search-path=$HOME --search-path=/data -H --no-ignore-vcs -E .git -td -tf --glob .session.vim | sed 's/\/\.session\.vim//g'" \
     FZF_DEFAULT_OPTS=$(__fzf_defaults "--reverse --scheme=path --keep-right --ghost='Session' --preview='eza -lhA --group-directories-first --icons --color=always --no-filesize --no-permissions --git {}'") \
     FZF_DEFAULT_OPTS_FILE='' $(__fzfcmd) --no-multi < /dev/tty)"
 
