@@ -25,8 +25,9 @@ export BAT_THEME="Catppuccin Macchiato"
 export MANPAGER="nvim +Man! "
 export AUR_PAGER="yazi"
 
-path=(~/.local/bin $path)
+path=(~/.config/composer/vendor/bin $path)
 path=($PNPM_HOME $path)
+path=(~/.local/bin $path)
 export PATH
 
 # vim:fileencoding=utf-8
