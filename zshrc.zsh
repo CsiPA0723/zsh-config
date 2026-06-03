@@ -2,7 +2,8 @@ source $HOME/.config/zsh-config/options.zsh
 source $HOME/.config/zsh-config/input.zsh
 source $HOME/.config/zsh-config/colors.zsh
 
-fpath=($HOME/.config/zsh-config/completions $fpath)
+[ -s $HOME/.zfunc ] && fpath=($HOME/.zfunc $fpath)
+fpath=($HOME/.config/zsh-config/completions  $fpath)
 fpath=($HOME/.config/zsh-config/functions $fpath)
 autoload -Uz $HOME/.config/zsh-config/functions/*
 
