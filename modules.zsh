@@ -2,20 +2,37 @@
 
 MODULE_FOLDER=${HOME}/.config/zsh-config/modules
 
+local module_urls=(
+  https://github.com/zdharma-continuum/fast-syntax-highlighting
+  https://github.com/olets/zsh-abbr
+  https://github.com/zsh-users/zsh-autosuggestions
+  https://github.com/olets/zsh-autosuggestions-abbreviations-strategy
+  https://github.com/zsh-users/zsh-completions
+  https://github.com/zsh-users/zsh-history-substring-search
+  https://github.com/olets/zsh-transient-prompt
+)
+
 zsh-install-modules() {
   if (( $+commands[git] )); then
-    # zsh-abbr
-    git clone https://github.com/olets/zsh-abbr --recurse-submodules --single-branch --branch main --depth 1 ${MODULE_FOLDER}/zsh-abbr
-    # zsh-autosuggestions-abbreviations-strategy
-    git clone https://github.com/olets/zsh-autosuggestions-abbreviations-strategy --single-branch --branch main --depth 1 ${MODULE_FOLDER}/zsh-autosuggestions-abbreviations-strategy
-  else 
+    for url in ${module_urls}; do
+     git clone "${url}" --recurse-submodules --single-branch --branch main --depth 1 "${MODULE_FOLDER}/${url##*/}"
+    done
+  else
     echo "Please install git to install the plugins"
   fi
 }
 
 zsh-update-modules() {
   if (( $+commands[git] )); then
-  else 
+    local _cwd=$(pwd)
+    for url in ${module_urls}; do
+      local module=${url##*/}
+      echo "\nUpdating ${module}..."
+      cd "${MODULE_FOLDER}/${module}"
+      git pull --recurse-submodules --depth 1
+    done
+    cd ${_cwd}
+  else
     echo "Please install git to update the plugins"
   fi
 }
@@ -48,6 +65,9 @@ source ${MODULE_FOLDER}/zsh-history-substring-search/zsh-history-substring-searc
 source ${MODULE_FOLDER}/zsh-abbr/zsh-abbr.zsh
 source ${MODULE_FOLDER}/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ${MODULE_FOLDER}/zsh-autosuggestions-abbreviations-strategy/zsh-autosuggestions-abbreviations-strategy.zsh
+
+# Direnv module
+eval "$(direnv hook zsh)"
 
 # }}}
 
